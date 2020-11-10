@@ -8,6 +8,18 @@ function getRandomWord(listOfWords) {
   return listOfWords[getRandomNumber()]
 }
 
+// Convert Farenheit to Centigrade
+function convertToCentigrade(tempInFarenheit) {
+  temp = (tempInFarenheit-32)*5/9
+  return Math.round(temp)
+}
+
+// Convert Pounds to Stone
+function convertToStone(weightInPounds) {
+  weight = weightInPounds/14
+  return Math.round(weight)
+}
+
 // Creates a random story
 function getStory() {
 
@@ -17,6 +29,9 @@ function getStory() {
   let ukButtonStatus = document.querySelector('#uk').checked
   let whoUser
   let valuesPhrase
+  let temp = 91
+  let weight = 300
+  let measure
   let whoPhrase = getRandomWord(['Willy the Goblin','Big Daddy','Father Christmas'])
   let wherePhrase = getRandomWord(['the soup kitchen','Disneyland','the White House'])
   let whatPhrase = getRandomWord(['spontaneously combusted','melted into a puddle on the sidewalk','turned into a slug and crawled away'])
@@ -28,13 +43,17 @@ function getStory() {
     whoUser = 'Bob'
   }
 
-  // Checks if which button is checked
+  // Checks if which button is checked and assign values to variables
   if (ukButtonStatus === false) {  
-    valuesPhrase = ['94 fahrenheit','300 pounds']
+    measure = ['farenheit', 'pounds']
   } else {
-    valuesPhrase = ['34 centigrade','21 stone']
+    temp = convertToCentigrade(temp)
+    weight = convertToStone(weight)
+    measure = ['centigrade', 'stones']
   }
 
+  valuesPhrase = [`${ temp } ${ measure[0] }`,`${ weight } ${ measure[1] }`]
+  
   // Create output based on user input and default values
   output.textContent = `It was ${ valuesPhrase[0] } outside, so ${ whoPhrase } went for a walk. 
   When they got to ${ wherePhrase }, they stared in horror for a few moments,
